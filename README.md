@@ -1,40 +1,85 @@
-This is a Kotlin Multiplatform project targeting Android, Desktop (JVM).
+# 레벨2 - 칸반 보드 태스크(리팩터링)
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+## 요구 사항
 
-### Build and Run Android Application
+비즈니스 로직과 UI 로직을 분리하고, 안정적인 사용자 경험을 위한 예외 케이스 처리(Fallback)를 적용한다.
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:assembleDebug
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:assembleDebug
-  ```
+## 구현 기능 목록
 
-### Build and Run Desktop (JVM) Application
+### 단위 테스트 시나리오
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+1. 비정상적인 입력값
+   - 제목(`title`)이 비어 있거나 공백인 경우, 예외가 발생
+   - 담당자 이름(`crewName`)이 비어 있거나 공백인 경우, 예외가 발생
+
+### UI 테스트 시나리오
+
+1. 데이터 노출 검증
+   - 제목, 설명, 태그, 담당자 정보가 모두 있을 때 각 요소가 화면에 정확히 렌더링되는지 확인
+2. 태그 표시 개수 제한
+   - 6개 이상의 태그가 전달될 때, 리스트의 상위 5개만 필터링되어 전달되는지 확인
+3. 태그 이름 절삭
+   - 5글자를 초과하는 태그 이름이 입력되면 상위 5글자만 추출하여 사용하는지 확인
+4. 조건부 렌더링
+   - 설명(`content`)이 비어 있는 경우, 해당 텍스트 영역이 UI 레이아웃을 차지하지 않는지 확인
+   - 태그 리스트가 비어 있는 경우, 태그 영역 전체가 렌더링되지 않는지 확인
+5. 텍스트 제약 조건 (Ellipsis & MaxLines)
+   - 제목이 1줄 영역을 초과할 때 말줄임표(...)가 표시되는지 확인
+   - 설명이 2줄 영역을 초과할 때 말줄임표(...)가 표시되는지 확인
+   - 담당자 이름이 1줄 영역을 초과할 때 말줄임표(...)가 표시되는지 확인
+6. 이미지 예외 처리
+   - 담당자 프로필 이미지 정보가 없는 경우, 기본 아이콘이 노출되는지 확인
+
+# 레벨1 - 칸반 보드 태스크(카드)
+
+## 미션 목표
+[디자인 시안](https://www.figma.com/design/3aBG3UfkTwmHM8BnPyahtT/8%EA%B8%B0-Android-%EB%A0%88%EB%B2%A81-%EB%AF%B8%EC%85%98-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0-1&p=f)을 참고하여 칸반 보드용 태스크 카드를 구현합니다.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## 구현할 기능 및 명세 정리
+
+리뷰어분들이 어떤 의도로 각 컴포넌트를 설계하고 속성을 지정했는지 쉽게 파악하실 수 있도록, 초기 요구사항과 이를 바탕으로 구체화한 컴포넌트 명세로 정리했습니다.
+
+### 1. 카드 프레임
+* 요구사항 분석: 배경이 하얀색이고 곡률과 외곽선이 존재하는 카드의 뼈대입니다.
+* UI 명세:
+  - 배경색: 하얀색
+  - 테두리: 1px, 색상 gray
+  - 모서리 곡률: 10px
+  - 내부 여백: 17px
+  - 내부 컴포넌트 간 간격: 12px
+
+### 2. 카드 제목
+* 요구사항 분석: 카드의 제목을 표시하며, 길이가 길어 영역을 벗어나면 말줄임 처리를 합니다.
+* UI 명세:
+  - 텍스트 속성: 폰트 사이즈 16, 굵기 Bold
+  - 줄 수 제한: 최대 1줄
+  - 초과 처리: 말줄임
+
+### 3. 카드 본문
+* 요구사항 분석: 카드의 상세 본문을 표시합니다. 내용이 없을 경우 생략 가능하며, 길이가 길면 최대 2줄까지만 노출하고 말줄임 처리합니다.
+* UI 명세:
+  - 상태 처리: 데이터가 없으면 렌더링 생략
+  - 텍스트 속성: 폰트 사이즈 14px, 색상 DarkGray
+  - 줄 수 제한: 최대 2줄
+  - 초과 처리: 말줄임
+
+### 4. 태그 영역
+* 요구사항 분석: 카드와 연관된 태그들을 표시합니다. 태그 당 글자 수는 최대 5자로 제한합니다. 태그는 최대 5개까지만 노출하며, 데이터가 없을 경우 렌더링을 생략합니다.
+* UI 명세:
+  - 상태 처리: 데이터가 없으면 렌더링 생략
+  - 데이터 제한: 최대 5개 노출
+  - 스타일: 배경색 gray, 텍스트 색상 Black
+  - 레이아웃 구조: 공간에 따라 자연스럽게 줄바꿈이 되는 레이아웃
+  - 레이아웃 간격: 아이템 간 가로 간격 8px, 세로 간격 4px
+
+### 5. 프로필 정보
+* 요구사항 분석: 카드 하단에 담당자의 정보인 프로필 사진, 크루 네임을 표시하며, 본문 영역과 구분하기 위한 선이 존재합니다.
+* UI 명세:
+  - 구분선: 영역 상단 테두리 1px, 색상 lightGray
+  - 프로필 이미지: 크기 24px
+  - 크루 네임 텍스트: 
+    - 폰트 사이즈 14px
+    - 최대 1줄, 초과 시 말줄임 처리
+  - 레이아웃 간격: 프로필 이미지와 크루 네임 사이의 간격 8px
