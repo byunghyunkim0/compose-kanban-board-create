@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component
+package woowacourse.kanban.board.component.taskcard
 
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest

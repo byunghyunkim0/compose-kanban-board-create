@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component
+package woowacourse.kanban.board.component.taskcard
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

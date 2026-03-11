@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component
+package woowacourse.kanban.board.component.taskcard
 
 data class KanbanCardForm(val title: String, val crewName: String, val tags: List<String> = emptyList(), val content: String = "") {
     init {
