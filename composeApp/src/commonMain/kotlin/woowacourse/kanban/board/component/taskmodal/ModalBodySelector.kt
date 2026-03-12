@@ -48,20 +48,6 @@ private fun ModalBodySelectorOptionPreview() {
         "To Do",
         "Done",
     )
-    val contents = names.map {
-        @Composable {
-            ModalOptionButton(
-                modifier = Modifier,
-                onClick = {},
-                content = {
-                    ModalOptionStatus(
-                        modifier = Modifier,
-                        text = it,
-                    )
-                },
-            )
-        }
-    }
 
     ModalBodySelector(
         title = "상태",

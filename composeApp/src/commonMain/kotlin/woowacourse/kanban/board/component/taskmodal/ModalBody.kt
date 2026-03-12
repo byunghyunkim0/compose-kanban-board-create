@@ -42,45 +42,43 @@ fun ModalBody(modifier: Modifier = Modifier) {
         )
 
         val stateNames = listOf("In Progress", "To Do", "Done")
-        val optionContents = stateNames.map {
-            @Composable {
-                ModalOptionButton(
-                    modifier = Modifier, onClick = {},
-                    content = {
-                        ModalOptionStatus(
-                            modifier = Modifier,
-                            text = it,
-                        )
-                    },
-                )
-            }
-        }
-
         ModalBodySelector(
             title = "상태",
             essential = true,
-            content = optionContents,
-        )
-
-        val assigneeNames = listOf("커비", "바드", "다이노", "아오", "하로")
-        val assigneeContents = assigneeNames.map {
-            @Composable {
+            items = stateNames,
+            content = @Composable { name ->
                 ModalOptionButton(
-                    modifier = Modifier, onClick = {},
+                    onClick = {},
+                    modifier = Modifier,
                     content = {
-                        ModalOptionAssignee(
+                        ModalOptionStatus(
                             modifier = Modifier,
-                            name = it,
+                            text = name,
                         )
                     },
                 )
-            }
-        }
+            },
+        )
+
+        val assigneeNames = listOf("커비", "바드", "다이노", "아오", "하로")
         ModalBodySelector(
             title = "담당자",
             essential = true,
-            content = assigneeContents,
+            items = assigneeNames,
+            content = @Composable { name ->
+                ModalOptionButton(
+                    onClick = {},
+                    modifier = Modifier,
+                    content = {
+                        ModalOptionAssignee(
+                            modifier = Modifier,
+                            name = name,
+                        )
+                    },
+                )
+            },
         )
+
         ModalAction()
     }
 }
