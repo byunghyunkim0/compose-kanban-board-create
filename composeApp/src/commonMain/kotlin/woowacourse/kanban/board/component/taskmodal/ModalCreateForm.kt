@@ -32,7 +32,7 @@ fun ModalCreateForm(modifier: Modifier = Modifier) {
 
 @Preview(
     widthDp = 672,
-    heightDp = 820,
+    heightDp = 1000,
 )
 @Composable
 private fun ModalCreateFormPreview() {

@@ -24,8 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ModalAction(modifier: Modifier = Modifier) {
-    HorizontalDivider(thickness = Dp.Hairline, color = Color.LightGray)
+fun ModalAction(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    HorizontalDivider(
+        thickness = Dp.Hairline,
+        color = Color.LightGray,
+    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -60,7 +63,7 @@ fun ModalAction(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .height(44.dp)
                 .width(68.dp),
-            onClick = {},
+            onClick = onClick,
             colors = ButtonColors(
                 containerColor = Color.Blue,
                 contentColor = Color.White,
@@ -77,10 +80,11 @@ fun ModalAction(modifier: Modifier = Modifier) {
         }
     }
 }
+
 @Preview
 @Composable
 private fun ModalActionPreview() {
     Box(modifier = Modifier.padding(10.dp)) {
-        ModalAction()
+        ModalAction(onClick = {})
     }
 }

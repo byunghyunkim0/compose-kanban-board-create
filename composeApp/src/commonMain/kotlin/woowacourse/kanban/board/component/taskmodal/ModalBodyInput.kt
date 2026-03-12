@@ -22,6 +22,7 @@ fun ModalBodyInput(
     maxLines: Int,
     supportingText: String,
     state: String,
+    isValid: Boolean,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -37,7 +38,7 @@ fun ModalBodyInput(
         ModalInputField(
             value = state,
             onValueChange = onValueChange,
-            error = false,
+            isValid = isValid,
             placeHolder = placeHolder,
             maxLines = maxLines,
             supportingText = supportingText,
@@ -62,6 +63,7 @@ private fun ModalBodyInputPreview() {
             onValueChange = {
                 state = it
             },
+            isValid = false,
         )
     }
 }
