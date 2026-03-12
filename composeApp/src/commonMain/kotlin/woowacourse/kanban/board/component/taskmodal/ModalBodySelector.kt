@@ -11,11 +11,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ModalBodySelector(title: String, essential: Boolean, modifier: Modifier = Modifier, content: List<@Composable () -> Unit>) {
+fun ModalBodySelector(
+    title: String,
+    essential: Boolean,
+    modifier: Modifier = Modifier,
+    items: List<String>,
+    content: @Composable (item: String) -> Unit,
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        ModalInputTitle(title = title, essential = essential)
+        ModalInputTitle(
+            title = title,
+            essential = essential,
+        )
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
@@ -23,9 +32,9 @@ fun ModalBodySelector(title: String, essential: Boolean, modifier: Modifier = Mo
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             items(
-                content,
-            ) {
-                it()
+                items,
+            ) { item ->
+                content(item)
             }
         }
     }
@@ -34,11 +43,16 @@ fun ModalBodySelector(title: String, essential: Boolean, modifier: Modifier = Mo
 @Preview
 @Composable
 private fun ModalBodySelectorOptionPreview() {
-    val names = listOf("In Progress", "To Do", "Done")
+    val names = listOf(
+        "In Progress",
+        "To Do",
+        "Done",
+    )
     val contents = names.map {
         @Composable {
             ModalOptionButton(
-                modifier = Modifier, onClick = {},
+                modifier = Modifier,
+                onClick = {},
                 content = {
                     ModalOptionStatus(
                         modifier = Modifier,
@@ -52,31 +66,47 @@ private fun ModalBodySelectorOptionPreview() {
     ModalBodySelector(
         title = "상태",
         essential = true,
-        content = contents,
+        items = names,
+        content = @Composable { name ->
+            ModalOptionButton(
+                onClick = {},
+                modifier = Modifier,
+                content = {
+                    ModalOptionStatus(
+                        modifier = Modifier,
+                        text = name,
+                    )
+                },
+            )
+        },
     )
 }
 
 @Preview
 @Composable
 private fun ModalOptionAssigneePreview() {
-    val names = listOf("커비", "바드", "다이노", "아오", "하로")
-    val contents = names.map {
-        @Composable {
-            ModalOptionButton(
-                modifier = Modifier, onClick = {},
-                content = {
-                    ModalOptionAssignee(
-                        modifier = Modifier,
-                        name = it,
-                    )
-                },
-            )
-        }
-    }
-
+    val names = listOf(
+        "커비",
+        "바드",
+        "다이노",
+        "아오",
+        "하로",
+    )
     ModalBodySelector(
         title = "담당자",
         essential = true,
-        content = contents,
+        items = names,
+        content = @Composable { name ->
+            ModalOptionButton(
+                onClick = {},
+                modifier = Modifier,
+                content = {
+                    ModalOptionAssignee(
+                        modifier = Modifier,
+                        name = name,
+                    )
+                },
+            )
+        },
     )
 }
