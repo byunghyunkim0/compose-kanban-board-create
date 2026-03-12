@@ -23,7 +23,9 @@ fun ModalHeader(modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(24.dp),
     ) {
         Text(
             text = "새 태스크 생성",
