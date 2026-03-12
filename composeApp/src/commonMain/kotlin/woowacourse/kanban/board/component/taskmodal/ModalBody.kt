@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ModalBody(modifier: Modifier = Modifier) {
+fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -23,6 +26,10 @@ fun ModalBody(modifier: Modifier = Modifier) {
             placeHolder = "태스크 제목을 입력하세요",
             maxLines = 1,
             supportingText = "",
+            state = state.title,
+            onValueChange = {
+                state.title = it
+            },
         )
 
         ModalBodyInput(
@@ -31,17 +38,29 @@ fun ModalBody(modifier: Modifier = Modifier) {
             placeHolder = "태스크에 대한 자세한 설명을 입력하세요",
             maxLines = 5,
             supportingText = "",
+            state = state.content,
+            onValueChange = {
+                state.content = it
+            },
         )
-
+//
         ModalBodyInput(
             title = "태그",
             essential = false,
             placeHolder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
             maxLines = 1,
             supportingText = "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다.",
+            state = state.tag,
+            onValueChange = {
+                state.tag = it
+            },
         )
 
-        val stateNames = listOf("In Progress", "To Do", "Done")
+        val stateNames = listOf(
+            "In Progress",
+            "To Do",
+            "Done",
+        )
         ModalBodySelector(
             title = "상태",
             essential = true,
@@ -60,7 +79,13 @@ fun ModalBody(modifier: Modifier = Modifier) {
             },
         )
 
-        val assigneeNames = listOf("커비", "바드", "다이노", "아오", "하로")
+        val assigneeNames = listOf(
+            "커비",
+            "바드",
+            "다이노",
+            "아오",
+            "하로",
+        )
         ModalBodySelector(
             title = "담당자",
             essential = true,
@@ -83,8 +108,14 @@ fun ModalBody(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(widthDp = 672, heightDp = 820)
+@Preview(
+    widthDp = 672,
+    heightDp = 820,
+)
 @Composable
 private fun ModalBodyPreview() {
-    ModalBody()
+    var state = remember { ModalCreateFormState() }
+    ModalBody(
+        state = state,
+    )
 }

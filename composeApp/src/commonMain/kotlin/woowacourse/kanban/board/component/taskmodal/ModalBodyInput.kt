@@ -21,9 +21,10 @@ fun ModalBodyInput(
     placeHolder: String,
     maxLines: Int,
     supportingText: String,
+    state: String,
+    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var input by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth(),
@@ -34,10 +35,8 @@ fun ModalBodyInput(
         )
 
         ModalInputField(
-            value = input,
-            onValueChange = { newValue ->
-                input = newValue
-            },
+            value = state,
+            onValueChange = onValueChange,
             error = false,
             placeHolder = placeHolder,
             maxLines = maxLines,
@@ -52,12 +51,17 @@ private fun ModalBodyInputPreview() {
     Box(
         modifier = Modifier.padding(10.dp),
     ) {
+        var state by remember { mutableStateOf("") }
         ModalBodyInput(
             title = "제목",
             essential = true,
             placeHolder = "태스크 제목을 입력하세요",
             maxLines = 1,
             supportingText = "서폿팅 텍스트 입니다.",
+            state = state,
+            onValueChange = {
+                state = it
+            },
         )
     }
 }
