@@ -4,9 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -16,7 +21,7 @@ fun ModalBodySelector(
     essential: Boolean,
     modifier: Modifier = Modifier,
     items: List<String>,
-    content: @Composable (item: String) -> Unit,
+    content: @Composable (item: String, id: Int) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -31,10 +36,13 @@ fun ModalBodySelector(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(
+            itemsIndexed(
                 items,
-            ) { item ->
-                content(item)
+            ) { index, item ->
+                content(
+                    item,
+                    index,
+                )
             }
         }
     }
@@ -43,6 +51,8 @@ fun ModalBodySelector(
 @Preview
 @Composable
 private fun ModalBodySelectorOptionPreview() {
+    var selectedId by remember { mutableIntStateOf(0) }
+
     val names = listOf(
         "In Progress",
         "To Do",
@@ -53,9 +63,11 @@ private fun ModalBodySelectorOptionPreview() {
         title = "상태",
         essential = true,
         items = names,
-        content = @Composable { name ->
+        content = @Composable { name, id ->
             ModalOptionButton(
-                onClick = {},
+                onClick = {
+                    selectedId = id
+                },
                 modifier = Modifier,
                 content = {
                     ModalOptionStatus(
@@ -63,6 +75,9 @@ private fun ModalBodySelectorOptionPreview() {
                         text = name,
                     )
                 },
+                isSelected = selectedId == id,
+                selectedContainerColor = Color(0xFFEFF6FF),
+                selectedBorderColor = Color(0xFF1447E6),
             )
         },
     )
@@ -71,6 +86,7 @@ private fun ModalBodySelectorOptionPreview() {
 @Preview
 @Composable
 private fun ModalOptionAssigneePreview() {
+    var selectedId by remember { mutableIntStateOf(0) }
     val names = listOf(
         "커비",
         "바드",
@@ -82,16 +98,20 @@ private fun ModalOptionAssigneePreview() {
         title = "담당자",
         essential = true,
         items = names,
-        content = @Composable { name ->
+        content = @Composable { name, id ->
             ModalOptionButton(
-                onClick = {},
-                modifier = Modifier,
+                onClick = {
+                    selectedId = id
+                },
                 content = {
                     ModalOptionAssignee(
                         modifier = Modifier,
                         name = name,
                     )
                 },
+                isSelected = selectedId == id,
+                selectedContainerColor = Color(0xFFEFF6FF),
+                selectedBorderColor = Color(0xFF615FFF),
             )
         },
     )

@@ -3,12 +3,12 @@ package woowacourse.kanban.board.component.taskmodal
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -65,16 +65,19 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             title = "상태",
             essential = true,
             items = stateNames,
-            content = @Composable { name ->
+            content = @Composable { name, id ->
                 ModalOptionButton(
-                    onClick = {},
-                    modifier = Modifier,
+                    modifier = Modifier.height(52.dp),
+                    onClick = { state.status = id },
                     content = {
                         ModalOptionStatus(
                             modifier = Modifier,
                             text = name,
                         )
                     },
+                    isSelected = state.status == id,
+                    selectedContainerColor = Color(0xFFEFF6FF),
+                    selectedBorderColor = Color(0xFF1447E6),
                 )
             },
         )
@@ -90,16 +93,21 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             title = "담당자",
             essential = true,
             items = assigneeNames,
-            content = @Composable { name ->
+            content = @Composable { name, id ->
                 ModalOptionButton(
-                    onClick = {},
-                    modifier = Modifier,
+                    modifier = Modifier.height(68.dp),
+                    onClick = {
+                        state.assignee = id
+                    },
                     content = {
                         ModalOptionAssignee(
                             modifier = Modifier,
                             name = name,
                         )
                     },
+                    isSelected = state.assignee == id,
+                    selectedContainerColor = Color(0xFFEFF6FF),
+                    selectedBorderColor = Color(0xFF615FFF),
                 )
             },
         )

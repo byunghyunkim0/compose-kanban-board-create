@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,22 +24,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter.Companion.tint
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.awt.SystemColor.text
 
 @Composable
-fun ModalOptionButton(modifier: Modifier = Modifier, onClick: () -> Unit, content: @Composable () -> Unit) {
+fun ModalOptionButton(
+    modifier: Modifier = Modifier,
+    selectedContainerColor: Color,
+    selectedBorderColor: Color,
+    onClick: () -> Unit,
+    content: @Composable () -> Unit,
+    isSelected: Boolean,
+) {
+    var containerColor = if (isSelected) selectedContainerColor else Color.White
+    var borderColor = if (isSelected) selectedBorderColor else Color(0xFFE5E7EB)
     Box(
         modifier = modifier
             .width(200.dp)
-            .height(52.dp)
             .clip(shape = RoundedCornerShape(10.dp))
-            .background(Color.LightGray)
-            .border(1.5.dp, Color.Blue, RoundedCornerShape(10.dp))
+            .background(containerColor)
+            .border(1.5.dp, borderColor, RoundedCornerShape(10.dp))
             .clickable(enabled = true, onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
@@ -53,13 +58,16 @@ fun ModalOptionButton(modifier: Modifier = Modifier, onClick: () -> Unit, conten
 private fun ModalOptionButtonPreview() {
     var enabled by remember { mutableStateOf(false) }
     ModalOptionButton(
-        modifier = Modifier, onClick = {},
+        onClick = {},
         content = {
             ModalOptionStatus(
                 modifier = Modifier,
                 text = "In Progress",
             )
         },
+        isSelected = enabled,
+        selectedContainerColor = Color(0xFFEFF6FF),
+        selectedBorderColor = Color(0xFF1447E6),
     )
 }
 
@@ -68,13 +76,16 @@ private fun ModalOptionButtonPreview() {
 private fun ModalOptionAssigneePreview() {
     var enabled by remember { mutableStateOf(false) }
     ModalOptionButton(
-        modifier = Modifier, onClick = {},
+        onClick = {},
         content = {
             ModalOptionAssignee(
                 modifier = Modifier,
                 name = "다이노",
             )
         },
+        isSelected = enabled,
+        selectedContainerColor = Color(0xFFEFF6FF),
+        selectedBorderColor = Color(0xFF615FFF),
     )
 }
 
