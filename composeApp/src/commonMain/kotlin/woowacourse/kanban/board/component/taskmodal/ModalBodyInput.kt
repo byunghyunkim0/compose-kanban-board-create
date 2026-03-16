@@ -16,9 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ModalBodyInput(
-    title: String,
-    essential: Boolean,
-    placeHolder: String,
+    inputTitle: ModalBodyTextInputTitle,
     maxLines: Int,
     supportingText: String,
     state: String,
@@ -31,15 +29,15 @@ fun ModalBodyInput(
         modifier = modifier.fillMaxWidth(),
     ) {
         ModalInputTitle(
-            title = title,
-            essential = essential,
+            title = inputTitle.title,
+            essential = inputTitle.essential,
         )
 
         ModalInputField(
             value = state,
             onValueChange = onValueChange,
             isValid = isValid,
-            placeHolder = placeHolder,
+            placeHolder = inputTitle.placeholder,
             maxLines = maxLines,
             supportingText = supportingText,
         )
@@ -49,14 +47,13 @@ fun ModalBodyInput(
 @Preview
 @Composable
 private fun ModalBodyInputPreview() {
+    val inputTitle = ModalBodyTextInputTitle.TITLE
     Box(
         modifier = Modifier.padding(10.dp),
     ) {
         var state by remember { mutableStateOf("") }
         ModalBodyInput(
-            title = "제목",
-            essential = true,
-            placeHolder = "태스크 제목을 입력하세요",
+            inputTitle = inputTitle,
             maxLines = 1,
             supportingText = "서폿팅 텍스트 입니다.",
             state = state,

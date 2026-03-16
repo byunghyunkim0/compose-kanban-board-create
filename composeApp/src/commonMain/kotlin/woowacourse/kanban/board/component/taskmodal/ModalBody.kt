@@ -22,9 +22,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         ModalBodyInput(
-            title = "제목",
-            essential = true,
-            placeHolder = "태스크 제목을 입력하세요",
+            inputTitle = ModalBodyTextInputTitle.TITLE,
             maxLines = 1,
             supportingText = titleMessage,
             state = state.title,
@@ -35,9 +33,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         )
 
         ModalBodyInput(
-            title = "설명",
-            essential = false,
-            placeHolder = "태스크에 대한 자세한 설명을 입력하세요",
+            inputTitle = ModalBodyTextInputTitle.CONTENT,
             maxLines = 5,
             supportingText = "",
             state = state.content,
@@ -48,9 +44,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         )
 
         ModalBodyInput(
-            title = "태그",
-            essential = false,
-            placeHolder = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)",
+            inputTitle = ModalBodyTextInputTitle.TAG,
             maxLines = 1,
             supportingText = state.errorTagMessage,
             state = state.tag,
@@ -66,8 +60,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             "Done",
         )
         ModalBodySelector(
-            title = "상태",
-            essential = true,
+            selectorTitle = ModalBodySelectorTitle.STATUS,
             items = stateNames,
             content = @Composable { name, id ->
                 ModalOptionButton(
@@ -94,8 +87,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             "하로",
         )
         ModalBodySelector(
-            title = "담당자",
-            essential = true,
+            selectorTitle = ModalBodySelectorTitle.ASSIGNEE,
             items = assigneeNames,
             content = @Composable { name, id ->
                 ModalOptionButton(

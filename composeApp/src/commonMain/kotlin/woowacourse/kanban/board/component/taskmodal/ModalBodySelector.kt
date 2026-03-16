@@ -17,8 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ModalBodySelector(
-    title: String,
-    essential: Boolean,
+    selectorTitle: ModalBodySelectorTitle,
     modifier: Modifier = Modifier,
     items: List<String>,
     content: @Composable (item: String, id: Int) -> Unit,
@@ -27,8 +26,8 @@ fun ModalBodySelector(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         ModalInputTitle(
-            title = title,
-            essential = essential,
+            title = selectorTitle.title,
+            essential = selectorTitle.essential,
         )
 
         LazyVerticalGrid(
@@ -53,6 +52,7 @@ fun ModalBodySelector(
 private fun ModalBodySelectorOptionPreview() {
     var selectedId by remember { mutableIntStateOf(0) }
 
+    val selectorTitle = ModalBodySelectorTitle.STATUS
     val names = listOf(
         "In Progress",
         "To Do",
@@ -60,8 +60,7 @@ private fun ModalBodySelectorOptionPreview() {
     )
 
     ModalBodySelector(
-        title = "상태",
-        essential = true,
+        selectorTitle = selectorTitle,
         items = names,
         content = @Composable { name, id ->
             ModalOptionButton(
@@ -87,6 +86,7 @@ private fun ModalBodySelectorOptionPreview() {
 @Composable
 private fun ModalOptionAssigneePreview() {
     var selectedId by remember { mutableIntStateOf(0) }
+    val selectorTitle = ModalBodySelectorTitle.ASSIGNEE
     val names = listOf(
         "커비",
         "바드",
@@ -95,8 +95,7 @@ private fun ModalOptionAssigneePreview() {
         "하로",
     )
     ModalBodySelector(
-        title = "담당자",
-        essential = true,
+        selectorTitle = selectorTitle,
         items = names,
         content = @Composable { name, id ->
             ModalOptionButton(
