@@ -61,7 +61,7 @@ data class KanbanCardInfo(
     val crewImage: DrawableResource? = null,
 )
 
-class KanbanCardPreviewParameterProvider : PreviewParameterProvider<KanbanCardInfo> {
+private class KanbanCardPreviewParameterProvider : PreviewParameterProvider<KanbanCardInfo> {
     val tags = listOf("컴포넌트", "성능")
     override val values = sequenceOf(
         KanbanCardInfo(
