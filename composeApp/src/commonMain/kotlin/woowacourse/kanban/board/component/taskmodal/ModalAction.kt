@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.theme.CreateButtonBackground
 
 @Composable
-fun ModalAction(modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun ModalAction(isValidTitle: Boolean, isValidTag: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
     HorizontalDivider(
         thickness = Dp.Hairline,
         color = Color.LightGray,
@@ -63,6 +63,7 @@ fun ModalAction(modifier: Modifier = Modifier, onClick: () -> Unit) {
             modifier = Modifier
                 .height(44.dp)
                 .width(68.dp),
+            enabled = isValidTitle && isValidTag,
             onClick = onClick,
             colors = ButtonColors(
                 containerColor = CreateButtonBackground,
@@ -85,6 +86,10 @@ fun ModalAction(modifier: Modifier = Modifier, onClick: () -> Unit) {
 @Composable
 private fun ModalActionPreview() {
     Box(modifier = Modifier.padding(10.dp)) {
-        ModalAction(onClick = {})
+        ModalAction(
+            isValidTag = true,
+            isValidTitle = true,
+            onClick = {},
+        )
     }
 }

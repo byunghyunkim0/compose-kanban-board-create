@@ -30,6 +30,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             state = state.title,
             onValueChange = {
                 state.title = it
+                state.resetTitleError()
             },
             isValid = state.validTitle == ModalErrorType.DEFAULT,
         )
@@ -52,6 +53,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             state = state.tag,
             onValueChange = {
                 state.tag = it
+                state.resetTagError()
             },
             isValid = state.validTag == ModalErrorType.TAG_DEFAULT,
         )
@@ -101,6 +103,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         )
 
         ModalAction(
+            isValidTitle = state.isValidTitle,
+            isValidTag = state.isValidTag,
             onClick = { state.validate() },
         )
     }

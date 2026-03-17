@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.component.taskmodal
 
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +15,23 @@ class ModalCreateFormState {
 
     var validTitle by mutableStateOf(ModalErrorType.DEFAULT)
 
+    val isValidTitle by derivedStateOf {
+        validTitle == ModalErrorType.DEFAULT
+    }
+
     var validTag by mutableStateOf(ModalErrorType.TAG_DEFAULT)
+
+    val isValidTag by derivedStateOf {
+        validTag == ModalErrorType.TAG_DEFAULT
+    }
+
+    fun resetTitleError() {
+        validTitle = ModalErrorType.DEFAULT
+    }
+
+    fun resetTagError() {
+        validTag = ModalErrorType.TAG_DEFAULT
+    }
 
     fun validate() {
         isTitleValid()
