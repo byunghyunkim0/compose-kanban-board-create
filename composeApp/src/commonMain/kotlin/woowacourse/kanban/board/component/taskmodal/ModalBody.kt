@@ -54,11 +54,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             isValid = state.isValidTag,
         )
 
-        val stateNames = listOf(
-            "To Do",
-            "In Progress",
-            "Done",
-        )
+        val stateNames = ModalBodySelectorStatus.entries.map { it.status }
+
         ModalBodySelector(
             selectorTitle = ModalBodySelectorTitle.STATUS,
             items = stateNames,
@@ -79,16 +76,9 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             },
         )
 
-        val assigneeNames = listOf(
-            "커비",
-            "바드",
-            "다이노",
-            "아오",
-            "하로",
-        )
         ModalBodySelector(
             selectorTitle = ModalBodySelectorTitle.ASSIGNEE,
-            items = assigneeNames,
+            items = ModalMockData.assignees,
             content = @Composable { name, id ->
                 ModalOptionButton(
                     modifier = Modifier.height(68.dp),

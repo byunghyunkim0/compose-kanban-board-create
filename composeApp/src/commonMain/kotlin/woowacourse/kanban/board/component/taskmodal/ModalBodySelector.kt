@@ -53,15 +53,11 @@ private fun ModalBodySelectorOptionPreview() {
     var selectedId by remember { mutableIntStateOf(0) }
 
     val selectorTitle = ModalBodySelectorTitle.STATUS
-    val names = listOf(
-        "In Progress",
-        "To Do",
-        "Done",
-    )
+    val status = ModalBodySelectorStatus.entries.map { it.status }
 
     ModalBodySelector(
         selectorTitle = selectorTitle,
-        items = names,
+        items = status,
         content = @Composable { name, id ->
             ModalOptionButton(
                 onClick = {
@@ -87,16 +83,10 @@ private fun ModalBodySelectorOptionPreview() {
 private fun ModalOptionAssigneePreview() {
     var selectedId by remember { mutableIntStateOf(0) }
     val selectorTitle = ModalBodySelectorTitle.ASSIGNEE
-    val names = listOf(
-        "커비",
-        "바드",
-        "다이노",
-        "아오",
-        "하로",
-    )
+
     ModalBodySelector(
         selectorTitle = selectorTitle,
-        items = names,
+        items = ModalMockData.assignees,
         content = @Composable { name, id ->
             ModalOptionButton(
                 onClick = {

@@ -62,7 +62,7 @@ private fun ModalOptionButtonPreview() {
         content = {
             ModalOptionStatus(
                 modifier = Modifier,
-                text = "In Progress",
+                text = ModalBodySelectorStatus.IN_PROGRESS.status,
             )
         },
         isSelected = enabled,
@@ -80,7 +80,7 @@ private fun ModalOptionAssigneePreview() {
         content = {
             ModalOptionAssignee(
                 modifier = Modifier,
-                name = "다이노",
+                name = ModalMockData.assignees[0],
             )
         },
         isSelected = enabled,
