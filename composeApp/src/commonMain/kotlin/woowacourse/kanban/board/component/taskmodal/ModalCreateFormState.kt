@@ -12,47 +12,42 @@ class ModalCreateFormState {
     var status by mutableIntStateOf(0)
     var assignee by mutableIntStateOf(0)
 
-    var isValidTitle by mutableStateOf(true)
+    var validTitle by mutableStateOf(ModalErrorType.DEFAULT)
 
-    var isValidTag by mutableStateOf(true)
-
-    var errorTagMessage by mutableStateOf("5자 이내의 태그를 최대 5개까지 등록할 수 있습니다.")
+    var validTag by mutableStateOf(ModalErrorType.TAG_DEFAULT)
 
     fun validate() {
         isTitleValid()
-        isValidTag = isTagValid()
+        isTagValid()
     }
 
     private fun isTitleValid() {
-        isValidTitle = title.isNotBlank()
+        if (title.isBlank()) {
+            validTitle = ModalErrorType.TITLE_FORMAT
+            return
+        }
+        validTitle = ModalErrorType.DEFAULT
     }
 
-    private fun isTagValid(): Boolean {
+    private fun isTagValid() {
         if (tag.isEmpty()) {
-            errorTagMessage = "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다."
-            return true
+            validTag = ModalErrorType.TAG_DEFAULT
+            return
         }
 
-        val tags = tag.split(",")
-            .map {
-                if (it.isBlank()) {
-                    errorTagMessage = "태그 형식이 올바르지 않습니다."
-                    return false
-                }
-                it.trim()
-            }
+        val tags = tag.split(",").map { it.trim() }
 
-        if (tags.size > 5) {
-            errorTagMessage = "태그는 5자 이내로 5개까지만 등록할 수 있습니다."
-            return false
+        if (tags.any { it.isBlank() }) {
+            validTag = ModalErrorType.TAG_FORMAT
+            return
         }
-        tags.forEach {
-            if (it.length > 5) {
-                errorTagMessage = "태그는 5자 이내로 5개까지만 등록할 수 있습니다."
-                return false
-            }
+
+        if (tags.size > 5 || tags.any { it.length > 5 }) {
+            validTag = ModalErrorType.TAG_SIZE
+            return
         }
-        errorTagMessage = "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다."
-        return true
+
+        validTag = ModalErrorType.TAG_DEFAULT
+        return
     }
 }

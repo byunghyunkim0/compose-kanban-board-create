@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
-    val titleMessage = if (state.isValidTitle) "" else "제목을 입력해주세요."
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -24,18 +23,18 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         ModalBodyInput(
             inputTitle = ModalBodyTextInputTitle.TITLE,
             maxLines = 1,
-            supportingText = titleMessage,
+            validType = state.validTitle,
             state = state.title,
             onValueChange = {
                 state.title = it
             },
-            isValid = state.isValidTitle,
+            isValid = state.validTitle == ModalErrorType.DEFAULT,
         )
 
         ModalBodyInput(
             inputTitle = ModalBodyTextInputTitle.CONTENT,
             maxLines = 5,
-            supportingText = "",
+            validType = ModalErrorType.DEFAULT,
             state = state.content,
             onValueChange = {
                 state.content = it
@@ -46,12 +45,12 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         ModalBodyInput(
             inputTitle = ModalBodyTextInputTitle.TAG,
             maxLines = 1,
-            supportingText = state.errorTagMessage,
+            validType = state.validTag,
             state = state.tag,
             onValueChange = {
                 state.tag = it
             },
-            isValid = state.isValidTag,
+            isValid = state.validTag == ModalErrorType.TAG_DEFAULT,
         )
 
         val stateNames = ModalBodySelectorStatus.entries.map { it.status }

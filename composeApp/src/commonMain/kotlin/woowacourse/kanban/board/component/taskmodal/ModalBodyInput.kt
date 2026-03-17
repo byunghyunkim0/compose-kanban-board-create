@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 fun ModalBodyInput(
     inputTitle: ModalBodyTextInputTitle,
     maxLines: Int,
-    supportingText: String,
+    validType: ModalErrorType,
     state: String,
     isValid: Boolean,
     onValueChange: (String) -> Unit,
@@ -39,7 +39,7 @@ fun ModalBodyInput(
             isValid = isValid,
             placeHolder = inputTitle.placeholder,
             maxLines = maxLines,
-            supportingText = supportingText,
+            supportingText = validType.message,
         )
     }
 }
@@ -55,7 +55,7 @@ private fun ModalBodyInputPreview() {
         ModalBodyInput(
             inputTitle = inputTitle,
             maxLines = 1,
-            supportingText = "서폿팅 텍스트 입니다.",
+            validType = ModalErrorType.TITLE_FORMAT,
             state = state,
             onValueChange = {
                 state = it
