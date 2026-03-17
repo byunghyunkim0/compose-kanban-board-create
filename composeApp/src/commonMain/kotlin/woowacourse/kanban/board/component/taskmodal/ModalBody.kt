@@ -8,9 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.theme.AssigneeButtonBackground
+import woowacourse.kanban.board.theme.BorderAssigneeButton
+import woowacourse.kanban.board.theme.BorderStatusButton
+import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
 fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
@@ -69,8 +72,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
                         )
                     },
                     isSelected = state.status == id,
-                    selectedContainerColor = Color(0xFFEFF6FF),
-                    selectedBorderColor = Color(0xFF1447E6),
+                    selectedContainerColor = StatusButtonBackground,
+                    selectedBorderColor = BorderStatusButton,
                 )
             },
         )
@@ -91,8 +94,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
                         )
                     },
                     isSelected = state.assignee == id,
-                    selectedContainerColor = Color(0xFFEFF6FF),
-                    selectedBorderColor = Color(0xFF615FFF),
+                    selectedContainerColor = AssigneeButtonBackground,
+                    selectedBorderColor = BorderAssigneeButton,
                 )
             },
         )

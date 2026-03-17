@@ -11,9 +11,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import woowacourse.kanban.board.theme.AssigneeButtonBackground
+import woowacourse.kanban.board.theme.BorderAssigneeButton
+import woowacourse.kanban.board.theme.BorderStatusButton
+import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
 fun ModalBodySelector(
@@ -71,8 +74,8 @@ private fun ModalBodySelectorOptionPreview() {
                     )
                 },
                 isSelected = selectedId == id,
-                selectedContainerColor = Color(0xFFEFF6FF),
-                selectedBorderColor = Color(0xFF1447E6),
+                selectedContainerColor = StatusButtonBackground,
+                selectedBorderColor = BorderStatusButton,
             )
         },
     )
@@ -99,8 +102,8 @@ private fun ModalOptionAssigneePreview() {
                     )
                 },
                 isSelected = selectedId == id,
-                selectedContainerColor = Color(0xFFEFF6FF),
-                selectedBorderColor = Color(0xFF615FFF),
+                selectedContainerColor = AssigneeButtonBackground,
+                selectedBorderColor = BorderAssigneeButton,
             )
         },
     )

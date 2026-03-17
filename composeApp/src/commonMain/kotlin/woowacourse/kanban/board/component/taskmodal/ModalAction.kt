@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextFieldDefaults.contentPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.theme.CreateButtonBackground
 
 @Composable
 fun ModalAction(modifier: Modifier = Modifier, onClick: () -> Unit) {
@@ -65,7 +65,7 @@ fun ModalAction(modifier: Modifier = Modifier, onClick: () -> Unit) {
                 .width(68.dp),
             onClick = onClick,
             colors = ButtonColors(
-                containerColor = Color.Blue,
+                containerColor = CreateButtonBackground,
                 contentColor = Color.White,
                 disabledContainerColor = Color.Gray,
                 disabledContentColor = Color.White,

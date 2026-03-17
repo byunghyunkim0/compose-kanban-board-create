@@ -28,6 +28,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import woowacourse.kanban.board.theme.AssigneeButtonBackground
+import woowacourse.kanban.board.theme.BorderAssigneeButton
+import woowacourse.kanban.board.theme.BorderButtonDefault
+import woowacourse.kanban.board.theme.BorderStatusButton
+import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
 fun ModalOptionButton(
@@ -39,7 +44,7 @@ fun ModalOptionButton(
     isSelected: Boolean,
 ) {
     var containerColor = if (isSelected) selectedContainerColor else Color.White
-    var borderColor = if (isSelected) selectedBorderColor else Color(0xFFE5E7EB)
+    var borderColor = if (isSelected) selectedBorderColor else BorderButtonDefault
     Box(
         modifier = modifier
             .width(200.dp)
@@ -66,8 +71,8 @@ private fun ModalOptionButtonPreview() {
             )
         },
         isSelected = enabled,
-        selectedContainerColor = Color(0xFFEFF6FF),
-        selectedBorderColor = Color(0xFF1447E6),
+        selectedContainerColor = StatusButtonBackground,
+        selectedBorderColor = BorderStatusButton,
     )
 }
 
@@ -84,8 +89,8 @@ private fun ModalOptionAssigneePreview() {
             )
         },
         isSelected = enabled,
-        selectedContainerColor = Color(0xFFEFF6FF),
-        selectedBorderColor = Color(0xFF615FFF),
+        selectedContainerColor = AssigneeButtonBackground,
+        selectedBorderColor = BorderAssigneeButton,
     )
 }
 
