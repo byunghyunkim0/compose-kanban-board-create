@@ -13,10 +13,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.error_empty_title
+import kanbanboard.composeapp.generated.resources.error_invalid_tag_format
+import kanbanboard.composeapp.generated.resources.error_max_tags_format
+import kanbanboard.composeapp.generated.resources.label_title
+import kanbanboard.composeapp.generated.resources.place_holder_input_title
+import kanbanboard.composeapp.generated.resources.supporting_text_tags
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ModalBodyInput(
-    inputTitle: ModalBodyTextInputTitle,
+    title: String,
+    placeholder: String,
     maxLines: Int,
     validType: ModalErrorType,
     state: String,
@@ -25,26 +34,23 @@ fun ModalBodyInput(
     modifier: Modifier = Modifier,
 ) {
     val supportingText = when (validType) {
-        ModalErrorType.TITLE_FORMAT -> "제목을 입력해 주세요."
-        ModalErrorType.TAG_FORMAT -> "태그 형식이 올바르지 않습니다."
-        ModalErrorType.TAG_DEFAULT -> "5자 이내의 태그를 최대 5개까지 등록할 수 있습니다."
-        ModalErrorType.TAG_SIZE -> "태그는 5자 이내로 5개까지만 등록할 수 있습니다."
+        ModalErrorType.TITLE_FORMAT -> stringResource(Res.string.error_empty_title)
+        ModalErrorType.TAG_FORMAT -> stringResource(Res.string.error_invalid_tag_format)
+        ModalErrorType.TAG_DEFAULT -> stringResource(Res.string.supporting_text_tags)
+        ModalErrorType.TAG_SIZE -> stringResource(Res.string.error_max_tags_format)
         ModalErrorType.DEFAULT -> ""
     }
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth(),
     ) {
-        ModalInputTitle(
-            title = inputTitle.title,
-            essential = inputTitle.essential,
-        )
+        ModalInputTitle(title)
 
         ModalInputField(
             value = state,
             onValueChange = onValueChange,
             isValid = isValid,
-            placeHolder = inputTitle.placeholder,
+            placeHolder = placeholder,
             maxLines = maxLines,
             supportingText = supportingText,
         )
@@ -54,13 +60,13 @@ fun ModalBodyInput(
 @Preview
 @Composable
 private fun ModalBodyInputPreview() {
-    val inputTitle = ModalBodyTextInputTitle.TITLE
     Box(
         modifier = Modifier.padding(10.dp),
     ) {
         var state by remember { mutableStateOf("") }
         ModalBodyInput(
-            inputTitle = inputTitle,
+            title = stringResource(Res.string.label_title),
+            placeholder = stringResource(Res.string.place_holder_input_title),
             maxLines = 1,
             validType = ModalErrorType.TITLE_FORMAT,
             state = state,

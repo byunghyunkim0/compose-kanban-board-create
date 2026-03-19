@@ -13,6 +13,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.label_assignee
+import kanbanboard.composeapp.generated.resources.label_status
+import org.jetbrains.compose.resources.stringResource
 import woowacourse.kanban.board.theme.AssigneeButtonBackground
 import woowacourse.kanban.board.theme.BorderAssigneeButton
 import woowacourse.kanban.board.theme.BorderStatusButton
@@ -20,7 +24,7 @@ import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
 fun ModalBodySelector(
-    selectorTitle: ModalBodySelectorTitle,
+    title: String,
     modifier: Modifier = Modifier,
     items: List<String>,
     content: @Composable (item: String, id: Int) -> Unit,
@@ -28,10 +32,7 @@ fun ModalBodySelector(
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        ModalInputTitle(
-            title = selectorTitle.title,
-            essential = selectorTitle.essential,
-        )
+        ModalInputTitle(title)
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
@@ -55,11 +56,10 @@ fun ModalBodySelector(
 private fun ModalBodySelectorOptionPreview() {
     var selectedId by remember { mutableIntStateOf(0) }
 
-    val selectorTitle = ModalBodySelectorTitle.STATUS
     val status = ModalBodySelectorStatus.entries.map { it.status }
 
     ModalBodySelector(
-        selectorTitle = selectorTitle,
+        title = stringResource(Res.string.label_status),
         items = status,
         content = @Composable { name, id ->
             ModalOptionButton(
@@ -85,10 +85,9 @@ private fun ModalBodySelectorOptionPreview() {
 @Composable
 private fun ModalOptionAssigneePreview() {
     var selectedId by remember { mutableIntStateOf(0) }
-    val selectorTitle = ModalBodySelectorTitle.ASSIGNEE
 
     ModalBodySelector(
-        selectorTitle = selectorTitle,
+        title = stringResource(Res.string.label_assignee),
         items = ModalMockData.assignees,
         content = @Composable { name, id ->
             ModalOptionButton(

@@ -10,6 +10,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.label_assignee
+import kanbanboard.composeapp.generated.resources.label_description
+import kanbanboard.composeapp.generated.resources.label_status
+import kanbanboard.composeapp.generated.resources.label_tags
+import kanbanboard.composeapp.generated.resources.label_title
+import kanbanboard.composeapp.generated.resources.place_holder_input_description
+import kanbanboard.composeapp.generated.resources.place_holder_input_tags
+import kanbanboard.composeapp.generated.resources.place_holder_input_title
+import org.jetbrains.compose.resources.stringResource
 import woowacourse.kanban.board.theme.AssigneeButtonBackground
 import woowacourse.kanban.board.theme.BorderAssigneeButton
 import woowacourse.kanban.board.theme.BorderStatusButton
@@ -24,7 +34,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         ModalBodyInput(
-            inputTitle = ModalBodyTextInputTitle.TITLE,
+            title = stringResource(Res.string.label_title),
+            placeholder = stringResource(Res.string.place_holder_input_title),
             maxLines = 1,
             validType = state.validTitle,
             state = state.title,
@@ -36,7 +47,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         )
 
         ModalBodyInput(
-            inputTitle = ModalBodyTextInputTitle.CONTENT,
+            title = stringResource(Res.string.label_description),
+            placeholder = stringResource(Res.string.place_holder_input_description),
             maxLines = 5,
             validType = ModalErrorType.DEFAULT,
             state = state.content,
@@ -47,7 +59,8 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         )
 
         ModalBodyInput(
-            inputTitle = ModalBodyTextInputTitle.TAG,
+            title = stringResource(Res.string.label_tags),
+            placeholder = stringResource(Res.string.place_holder_input_tags),
             maxLines = 1,
             validType = state.validTag,
             state = state.tag,
@@ -61,7 +74,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         val stateNames = ModalBodySelectorStatus.entries.map { it.status }
 
         ModalBodySelector(
-            selectorTitle = ModalBodySelectorTitle.STATUS,
+            title = stringResource(Res.string.label_status),
             items = stateNames,
             content = @Composable { name, id ->
                 ModalOptionButton(
@@ -81,7 +94,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         )
 
         ModalBodySelector(
-            selectorTitle = ModalBodySelectorTitle.ASSIGNEE,
+            title = stringResource(Res.string.label_assignee),
             items = ModalMockData.assignees,
             content = @Composable { name, id ->
                 ModalOptionButton(

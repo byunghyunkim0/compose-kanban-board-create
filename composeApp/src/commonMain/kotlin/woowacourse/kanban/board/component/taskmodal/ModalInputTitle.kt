@@ -8,11 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.label_description
+import kanbanboard.composeapp.generated.resources.label_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ModalInputTitle(title: String, essential: Boolean, modifier: Modifier = Modifier) {
+fun ModalInputTitle(title: String, modifier: Modifier = Modifier) {
     Text(
-        text = "$title${if (essential) " *" else ""}",
+        text = title,
         fontSize = 20.sp,
     )
 }
@@ -23,14 +27,8 @@ private fun ModalInputTitlePreview() {
     Column(
         modifier = Modifier.padding(5.dp),
     ) {
-        ModalInputTitle(
-            title = "제목",
-            essential = true,
-        )
+        ModalInputTitle(stringResource(Res.string.label_title))
 
-        ModalInputTitle(
-            title = "설명",
-            essential = false,
-        )
+        ModalInputTitle(stringResource(Res.string.label_description))
     }
 }
