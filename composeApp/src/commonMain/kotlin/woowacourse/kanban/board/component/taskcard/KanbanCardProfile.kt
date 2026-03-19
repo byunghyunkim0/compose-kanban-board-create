@@ -1,6 +1,5 @@
 package woowacourse.kanban.board.component.taskcard
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -18,11 +17,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun KanbanCardProfile(crewName: String, modifier: Modifier = Modifier, crewImage: DrawableResource? = null) {
+fun KanbanCardProfile(crewName: String, modifier: Modifier = Modifier) {
     val imageModifier = Modifier.size(24.dp).clip(CircleShape)
 
     Row(
@@ -30,19 +27,11 @@ fun KanbanCardProfile(crewName: String, modifier: Modifier = Modifier, crewImage
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        if (crewImage == null) {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
-                contentDescription = "기본 이미지",
-                modifier = imageModifier,
-            )
-        } else {
-            Image(
-                painter = painterResource(resource = crewImage),
-                contentDescription = "사용자 이미지",
-                modifier = imageModifier,
-            )
-        }
+        Icon(
+            imageVector = Icons.Default.AccountCircle,
+            contentDescription = "기본 이미지",
+            modifier = imageModifier,
+        )
 
         Text(
             text = crewName,
