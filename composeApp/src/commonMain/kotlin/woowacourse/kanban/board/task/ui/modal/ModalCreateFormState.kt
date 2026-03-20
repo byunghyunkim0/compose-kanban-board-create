@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import woowacourse.kanban.board.task.domain.TaskErrorType
+import woowacourse.kanban.board.task.domain.TaskValidator
 
 class ModalCreateFormState {
     var title by mutableStateOf("")
@@ -35,37 +36,7 @@ class ModalCreateFormState {
     }
 
     fun validate() {
-        isTitleValid()
-        isTagValid()
-    }
-
-    private fun isTitleValid() {
-        if (title.isBlank()) {
-            validTitle = TaskErrorType.TITLE_FORMAT
-            return
-        }
-        validTitle = TaskErrorType.DEFAULT
-    }
-
-    private fun isTagValid() {
-        if (tag.isEmpty()) {
-            validTag = TaskErrorType.TAG_DEFAULT
-            return
-        }
-
-        val tags = tag.split(",").map { it.trim() }
-
-        if (tags.any { it.isBlank() }) {
-            validTag = TaskErrorType.TAG_FORMAT
-            return
-        }
-
-        if (tags.size > 5 || tags.any { it.length > 5 }) {
-            validTag = TaskErrorType.TAG_SIZE
-            return
-        }
-
-        validTag = TaskErrorType.TAG_DEFAULT
-        return
+        validTitle = TaskValidator.validateTitle(title)
+        validTag = TaskValidator.validateTags(tag)
     }
 }
