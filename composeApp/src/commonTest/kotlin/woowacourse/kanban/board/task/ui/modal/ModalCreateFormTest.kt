@@ -8,6 +8,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.Density
+import woowacourse.kanban.board.task.domain.TaskMockData
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
@@ -18,7 +19,7 @@ class ModalCreateFormTest {
         // given
         setContent {
             CompositionLocalProvider(LocalDensity provides Density(density = 0.1f)) {
-                ModalCreateForm()
+                ModalCreateForm(assignee = TaskMockData.assignees)
             }
         }
 
@@ -26,7 +27,7 @@ class ModalCreateFormTest {
         onNodeWithText("생성").performClick()
 
         // then
-        onNodeWithText("제목을 입력해주세요.").assertExists()
+        onNodeWithText("제목을 입력해 주세요.").assertExists()
     }
 
     @Test
@@ -34,7 +35,7 @@ class ModalCreateFormTest {
         // given
         setContent {
             CompositionLocalProvider(LocalDensity provides Density(density = 0.1f)) {
-                ModalCreateForm()
+                ModalCreateForm(assignee = TaskMockData.assignees)
             }
         }
 
@@ -51,7 +52,7 @@ class ModalCreateFormTest {
         // given
         setContent {
             CompositionLocalProvider(LocalDensity provides Density(density = 0.1f)) {
-                ModalCreateForm()
+                ModalCreateForm(assignee = TaskMockData.assignees)
             }
         }
 
@@ -68,7 +69,7 @@ class ModalCreateFormTest {
         // given
         setContent {
             CompositionLocalProvider(LocalDensity provides Density(density = 0.1f)) {
-                ModalCreateForm()
+                ModalCreateForm(assignee = TaskMockData.assignees)
             }
         }
 

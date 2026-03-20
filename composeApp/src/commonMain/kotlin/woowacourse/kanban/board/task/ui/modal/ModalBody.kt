@@ -29,7 +29,7 @@ import woowacourse.kanban.board.theme.BorderStatusButton
 import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
-fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
+fun ModalBody(state: ModalCreateFormState, assignee: List<String>, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -96,7 +96,7 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
 
         ModalAssigneeSelector(
             title = stringResource(Res.string.label_assignee),
-            items = TaskMockData.assignees,
+            items = assignee,
         ) { name, id ->
             ModalOptionButton(
                 modifier = Modifier.height(68.dp),
@@ -128,8 +128,9 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
 )
 @Composable
 private fun ModalBodyPreview() {
-    var state = remember { ModalCreateFormState() }
+    val state = remember { ModalCreateFormState() }
     ModalBody(
         state = state,
+        assignee = TaskMockData.assignees,
     )
 }

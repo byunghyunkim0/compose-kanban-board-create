@@ -9,9 +9,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import woowacourse.kanban.board.task.domain.TaskMockData
 
 @Composable
-fun ModalCreateForm(modifier: Modifier = Modifier) {
+fun ModalCreateForm(assignee: List<String>, modifier: Modifier = Modifier) {
     val state = remember { ModalCreateFormState() }
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -25,6 +26,7 @@ fun ModalCreateForm(modifier: Modifier = Modifier) {
 
         ModalBody(
             state = state,
+            assignee = assignee,
             modifier = Modifier,
         )
     }
@@ -36,5 +38,5 @@ fun ModalCreateForm(modifier: Modifier = Modifier) {
 )
 @Composable
 private fun ModalCreateFormPreview() {
-    ModalCreateForm()
+    ModalCreateForm(assignee = TaskMockData.assignees)
 }
