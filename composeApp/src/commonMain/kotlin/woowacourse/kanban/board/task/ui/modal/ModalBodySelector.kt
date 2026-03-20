@@ -25,7 +25,36 @@ import woowacourse.kanban.board.theme.BorderStatusButton
 import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
-fun ModalBodySelector(
+fun ModalStatusSelector(
+    title: String,
+    items: List<KanbanStatus>,
+    modifier: Modifier = Modifier,
+    content: @Composable (item: KanbanStatus, id: Int) -> Unit,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        ModalInputTitle(title)
+
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            itemsIndexed(
+                items,
+            ) { index, item ->
+                content(
+                    item,
+                    index,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun ModalAssigneeSelector(
     title: String,
     items: List<String>,
     modifier: Modifier = Modifier,
@@ -55,15 +84,15 @@ fun ModalBodySelector(
 
 @Preview
 @Composable
-private fun ModalBodySelectorOptionPreview() {
+private fun ModalStatusSelectorPreview() {
     var selectedId by remember { mutableIntStateOf(0) }
 
-    val status = KanbanStatus.entries.map { it.status }
+    val status = KanbanStatus.entries
 
-    ModalBodySelector(
+    ModalStatusSelector(
         title = stringResource(Res.string.label_status),
         items = status,
-    ) { name, id ->
+    ) { status, id ->
         ModalOptionButton(
             onClick = {
                 selectedId = id
@@ -75,7 +104,7 @@ private fun ModalBodySelectorOptionPreview() {
         ) {
             ModalOptionStatus(
                 modifier = Modifier,
-                text = name,
+                kanbanStatus = status,
             )
         }
     }
@@ -83,10 +112,10 @@ private fun ModalBodySelectorOptionPreview() {
 
 @Preview
 @Composable
-private fun ModalOptionAssigneePreview() {
+private fun ModalAssigneeSelectorPreview() {
     var selectedId by remember { mutableIntStateOf(0) }
 
-    ModalBodySelector(
+    ModalAssigneeSelector(
         title = stringResource(Res.string.label_assignee),
         items = TaskMockData.assignees,
     ) { name, id ->

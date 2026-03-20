@@ -74,12 +74,12 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             isValid = state.validTag == TaskErrorType.TAG_DEFAULT,
         )
 
-        val stateNames = KanbanStatus.entries.map { it.status }
+        val stateNames = KanbanStatus.entries
 
-        ModalBodySelector(
+        ModalStatusSelector(
             title = stringResource(Res.string.label_status),
             items = stateNames,
-        ) { name, id ->
+        ) { status, id ->
             ModalOptionButton(
                 modifier = Modifier.height(52.dp),
                 onClick = { state.status = id },
@@ -89,12 +89,12 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
             ) {
                 ModalOptionStatus(
                     modifier = Modifier,
-                    text = name,
+                    kanbanStatus = status,
                 )
             }
         }
 
-        ModalBodySelector(
+        ModalAssigneeSelector(
             title = stringResource(Res.string.label_assignee),
             items = TaskMockData.assignees,
         ) { name, id ->

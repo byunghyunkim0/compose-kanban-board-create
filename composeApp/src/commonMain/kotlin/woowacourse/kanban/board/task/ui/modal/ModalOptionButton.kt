@@ -76,7 +76,7 @@ private fun ModalOptionButtonPreview() {
         content = {
             ModalOptionStatus(
                 modifier = Modifier,
-                text = KanbanStatus.IN_PROGRESS.status,
+                kanbanStatus = KanbanStatus.IN_PROGRESS,
             )
         },
         isSelected = enabled,
@@ -104,10 +104,15 @@ private fun ModalOptionAssigneePreview() {
 }
 
 @Composable
-fun ModalOptionStatus(modifier: Modifier = Modifier, text: String) {
+fun ModalOptionStatus(kanbanStatus: KanbanStatus, modifier: Modifier = Modifier) {
+    val status = when (kanbanStatus) {
+        KanbanStatus.TO_DO -> "To Do"
+        KanbanStatus.IN_PROGRESS -> "In Progress"
+        KanbanStatus.DONE -> "Done"
+    }
     Text(
         modifier = modifier,
-        text = text,
+        text = status,
     )
 }
 
