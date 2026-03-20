@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.Dp
 
 @Composable
 fun ModalCreateForm(modifier: Modifier = Modifier) {
-    var state = remember { ModalCreateFormState() }
+    val state = remember { ModalCreateFormState() }
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {

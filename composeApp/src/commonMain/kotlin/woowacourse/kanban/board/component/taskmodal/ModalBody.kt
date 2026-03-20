@@ -76,44 +76,40 @@ fun ModalBody(state: ModalCreateFormState, modifier: Modifier = Modifier) {
         ModalBodySelector(
             title = stringResource(Res.string.label_status),
             items = stateNames,
-            content = @Composable { name, id ->
-                ModalOptionButton(
-                    modifier = Modifier.height(52.dp),
-                    onClick = { state.status = id },
-                    content = {
-                        ModalOptionStatus(
-                            modifier = Modifier,
-                            text = name,
-                        )
-                    },
-                    isSelected = state.status == id,
-                    selectedContainerColor = StatusButtonBackground,
-                    selectedBorderColor = BorderStatusButton,
+        ) { name, id ->
+            ModalOptionButton(
+                modifier = Modifier.height(52.dp),
+                onClick = { state.status = id },
+                isSelected = state.status == id,
+                selectedContainerColor = StatusButtonBackground,
+                selectedBorderColor = BorderStatusButton,
+            ) {
+                ModalOptionStatus(
+                    modifier = Modifier,
+                    text = name,
                 )
-            },
-        )
+            }
+        }
 
         ModalBodySelector(
             title = stringResource(Res.string.label_assignee),
             items = ModalMockData.assignees,
-            content = @Composable { name, id ->
-                ModalOptionButton(
-                    modifier = Modifier.height(68.dp),
-                    onClick = {
-                        state.assignee = id
-                    },
-                    content = {
-                        ModalOptionAssignee(
-                            modifier = Modifier,
-                            name = name,
-                        )
-                    },
-                    isSelected = state.assignee == id,
-                    selectedContainerColor = AssigneeButtonBackground,
-                    selectedBorderColor = BorderAssigneeButton,
+        ) { name, id ->
+            ModalOptionButton(
+                modifier = Modifier.height(68.dp),
+                onClick = {
+                    state.assignee = id
+                },
+                isSelected = state.assignee == id,
+                selectedContainerColor = AssigneeButtonBackground,
+                selectedBorderColor = BorderAssigneeButton,
+            ) {
+                ModalOptionAssignee(
+                    modifier = Modifier,
+                    name = name,
                 )
-            },
-        )
+            }
+        }
 
         ModalAction(
             isValidTitle = state.isValidTitle,

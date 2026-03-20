@@ -40,11 +40,11 @@ fun ModalOptionButton(
     selectedContainerColor: Color,
     selectedBorderColor: Color,
     onClick: () -> Unit,
-    content: @Composable () -> Unit,
     isSelected: Boolean,
+    content: @Composable () -> Unit,
 ) {
-    var containerColor = if (isSelected) selectedContainerColor else Color.White
-    var borderColor = if (isSelected) selectedBorderColor else BorderButtonDefault
+    val containerColor = if (isSelected) selectedContainerColor else Color.White
+    val borderColor = if (isSelected) selectedBorderColor else BorderButtonDefault
     Box(
         modifier = modifier
             .width(200.dp)
@@ -103,7 +103,7 @@ fun ModalOptionStatus(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun ModalOptionAssignee(modifier: Modifier = Modifier, name: String) {
+fun ModalOptionAssignee(name: String, modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier.fillMaxWidth()
             .padding(12.dp),

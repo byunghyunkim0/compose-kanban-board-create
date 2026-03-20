@@ -25,8 +25,8 @@ import woowacourse.kanban.board.theme.StatusButtonBackground
 @Composable
 fun ModalBodySelector(
     title: String,
-    modifier: Modifier = Modifier,
     items: List<String>,
+    modifier: Modifier = Modifier,
     content: @Composable (item: String, id: Int) -> Unit,
 ) {
     Column(
@@ -61,24 +61,22 @@ private fun ModalBodySelectorOptionPreview() {
     ModalBodySelector(
         title = stringResource(Res.string.label_status),
         items = status,
-        content = @Composable { name, id ->
-            ModalOptionButton(
-                onClick = {
-                    selectedId = id
-                },
+    ) { name, id ->
+        ModalOptionButton(
+            onClick = {
+                selectedId = id
+            },
+            modifier = Modifier,
+            isSelected = selectedId == id,
+            selectedContainerColor = StatusButtonBackground,
+            selectedBorderColor = BorderStatusButton,
+        ) {
+            ModalOptionStatus(
                 modifier = Modifier,
-                content = {
-                    ModalOptionStatus(
-                        modifier = Modifier,
-                        text = name,
-                    )
-                },
-                isSelected = selectedId == id,
-                selectedContainerColor = StatusButtonBackground,
-                selectedBorderColor = BorderStatusButton,
+                text = name,
             )
-        },
-    )
+        }
+    }
 }
 
 @Preview
@@ -89,21 +87,19 @@ private fun ModalOptionAssigneePreview() {
     ModalBodySelector(
         title = stringResource(Res.string.label_assignee),
         items = ModalMockData.assignees,
-        content = @Composable { name, id ->
-            ModalOptionButton(
-                onClick = {
-                    selectedId = id
-                },
-                content = {
-                    ModalOptionAssignee(
-                        modifier = Modifier,
-                        name = name,
-                    )
-                },
-                isSelected = selectedId == id,
-                selectedContainerColor = AssigneeButtonBackground,
-                selectedBorderColor = BorderAssigneeButton,
+    ) { name, id ->
+        ModalOptionButton(
+            onClick = {
+                selectedId = id
+            },
+            isSelected = selectedId == id,
+            selectedContainerColor = AssigneeButtonBackground,
+            selectedBorderColor = BorderAssigneeButton,
+        ) {
+            ModalOptionAssignee(
+                modifier = Modifier,
+                name = name,
             )
-        },
-    )
+        }
+    }
 }
