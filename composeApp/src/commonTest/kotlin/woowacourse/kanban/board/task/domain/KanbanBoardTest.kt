@@ -66,20 +66,20 @@ class KanbanBoardTest {
             crewName = "담당자1",
         )
 
-        board.addCard(
+        val newBoard = board.addCard(
             kanbanCardForm = kanbanCardForm,
             status = KanbanStatus.TO_DO,
         )
-        board.addCard(
+        val newBoard1 = newBoard.addCard(
             kanbanCardForm = kanbanCardForm1,
             status = KanbanStatus.TO_DO,
         )
 
-        assertThat(board.cards.size).isEqualTo(2)
-        assertThat(board.cards.first().id).isEqualTo(1L)
-        assertThat(board.cards.first().title).isEqualTo("제목")
-        assertThat(board.cards.last().id).isEqualTo(2L)
-        assertThat(board.cards.last().title).isEqualTo("제목1")
+        assertThat(newBoard1.cards.size).isEqualTo(2)
+        assertThat(newBoard1.cards.first().id).isEqualTo(1L)
+        assertThat(newBoard1.cards.first().title).isEqualTo("제목")
+        assertThat(newBoard1.cards.last().id).isEqualTo(2L)
+        assertThat(newBoard1.cards.last().title).isEqualTo("제목1")
     }
 
     private fun createKanbanCard(id: Long = 0, status: KanbanStatus) = KanbanCard(

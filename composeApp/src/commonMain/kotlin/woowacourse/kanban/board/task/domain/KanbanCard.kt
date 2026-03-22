@@ -1,5 +1,8 @@
 package woowacourse.kanban.board.task.domain
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class KanbanCard(
     val id: Long,
     val title: String,
