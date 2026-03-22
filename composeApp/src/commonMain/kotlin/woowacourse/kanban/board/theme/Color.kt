@@ -23,3 +23,5 @@ val DoneColumnContentBackground = Color(0xFFF0FDF4)
 val TodoColumnBorder = Color(0xFFBEDBFF)
 val InProgressColumnBorder = Color(0xFFFEE685)
 val DoneColumnBorder = Color(0xFFB9F8CF)
+
+val BoardBackground = Color(0xFFF9FAFB)

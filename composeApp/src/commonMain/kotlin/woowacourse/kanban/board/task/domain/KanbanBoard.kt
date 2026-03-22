@@ -4,6 +4,8 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class KanbanBoard(val cards: List<KanbanCard> = emptyList(), val cardId: Long = 0) {
+    val totalCount: Int get() = cards.size
+    val doneCount: Int get() = cards.count { it.status == KanbanStatus.DONE }
     val progress: Int
         get() {
             if (cards.isEmpty()) return 0
