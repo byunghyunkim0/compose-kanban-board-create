@@ -25,3 +25,5 @@ val InProgressColumnBorder = Color(0xFFFEE685)
 val DoneColumnBorder = Color(0xFFB9F8CF)
 
 val BoardBackground = Color(0xFFF9FAFB)
+
+val SnackBarBackground = Color(0xFF322F35)
