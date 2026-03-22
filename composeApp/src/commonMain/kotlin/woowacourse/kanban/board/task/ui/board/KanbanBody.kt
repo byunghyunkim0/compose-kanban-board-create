@@ -131,10 +131,17 @@ private fun KanbanColumn(status: KanbanStatus, cards: List<KanbanCard>, modifier
                 .weight(1f)
                 .fillMaxWidth()
                 .background(color = color.backgroundColor)
-                .padding(start = 17.dp, end = 17.dp, top = 16.dp),
+                .padding(
+                    start = 17.dp,
+                    end = 17.dp,
+                    top = 16.dp,
+                ),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(cards) {
+            items(
+                key = { it.id },
+                items = cards,
+            ) {
                 KanbanCardItem(
                     KanbanCardForm(
                         title = it.title,
@@ -156,14 +163,26 @@ private fun KanbanColumn(status: KanbanStatus, cards: List<KanbanCard>, modifier
 private fun KanbanBodyPreview() {
     KanbanBody(
         todoCards = listOf(
-            createTempCard(1, KanbanStatus.TO_DO),
-            createTempCard(2, KanbanStatus.TO_DO),
+            createTempCard(
+                1,
+                KanbanStatus.TO_DO,
+            ),
+            createTempCard(
+                2,
+                KanbanStatus.TO_DO,
+            ),
         ),
         inProgressCards = listOf(
-            createTempCard(3, KanbanStatus.IN_PROGRESS),
+            createTempCard(
+                3,
+                KanbanStatus.IN_PROGRESS,
+            ),
         ),
         doneCards = listOf(
-            createTempCard(4, KanbanStatus.DONE),
+            createTempCard(
+                4,
+                KanbanStatus.DONE,
+            ),
         ),
     )
 }

@@ -20,6 +20,7 @@ import kanbanboard.composeapp.generated.resources.place_holder_input_description
 import kanbanboard.composeapp.generated.resources.place_holder_input_tags
 import kanbanboard.composeapp.generated.resources.place_holder_input_title
 import org.jetbrains.compose.resources.stringResource
+import woowacourse.kanban.board.task.domain.KanbanCardForm
 import woowacourse.kanban.board.task.domain.KanbanStatus
 import woowacourse.kanban.board.task.domain.TaskErrorType
 import woowacourse.kanban.board.task.domain.TaskMockData
@@ -29,7 +30,13 @@ import woowacourse.kanban.board.theme.BorderStatusButton
 import woowacourse.kanban.board.theme.StatusButtonBackground
 
 @Composable
-fun ModalBody(state: ModalCreateFormState, assignee: List<String>, onDismissRequest: () -> Unit, modifier: Modifier = Modifier) {
+fun ModalBody(
+    state: ModalCreateFormState,
+    assignee: List<String>,
+    onDismissRequest: () -> Unit,
+    onCreate: (KanbanCardForm, KanbanStatus) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -118,7 +125,11 @@ fun ModalBody(state: ModalCreateFormState, assignee: List<String>, onDismissRequ
             isValidTitle = state.isValidTitle,
             isValidTag = state.isValidTag,
             onDismissRequest = { onDismissRequest() },
-            onClick = { state.validate() },
+            onClick = {
+                if (state.validate()) {
+                    onCreate(state.toForm(assignee), state.toStatus())
+                }
+            },
         )
     }
 }
@@ -134,5 +145,6 @@ private fun ModalBodyPreview() {
         state = state,
         assignee = TaskMockData.assignees,
         onDismissRequest = {},
+        onCreate = { _, _ -> },
     )
 }

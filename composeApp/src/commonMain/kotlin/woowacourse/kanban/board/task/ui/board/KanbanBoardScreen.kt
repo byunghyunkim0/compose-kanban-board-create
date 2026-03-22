@@ -25,9 +25,9 @@ import woowacourse.kanban.board.theme.BoardBackground
 fun KanbanBoardScreen(modifier: Modifier = Modifier) {
     var board by remember { mutableStateOf(KanbanBoard()) }
 
-    val todoCards = remember { board.getCardByStatus(KanbanStatus.TO_DO) }
-    val inProgressCards = remember { board.getCardByStatus(KanbanStatus.IN_PROGRESS) }
-    val doneCards = remember { board.getCardByStatus(KanbanStatus.DONE) }
+    val todoCards = remember(board) { board.getCardByStatus(KanbanStatus.TO_DO) }
+    val inProgressCards = remember(board) { board.getCardByStatus(KanbanStatus.IN_PROGRESS) }
+    val doneCards = remember(board) { board.getCardByStatus(KanbanStatus.DONE) }
 
     var isShowModal by remember { mutableStateOf(false) }
 
@@ -35,6 +35,10 @@ fun KanbanBoardScreen(modifier: Modifier = Modifier) {
         ModalCreateForm(
             assignee = TaskMockData.assignees,
             onDismissRequest = { isShowModal = false },
+            onCreate = { form, status ->
+                board = board.addCard(form, status)
+                isShowModal = false
+            },
             modifier = Modifier.width(672.dp).height(820.dp),
         )
     }

@@ -14,10 +14,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import woowacourse.kanban.board.task.domain.KanbanCardForm
+import woowacourse.kanban.board.task.domain.KanbanStatus
 import woowacourse.kanban.board.task.domain.TaskMockData
 
 @Composable
-fun ModalCreateForm(assignee: List<String>, onDismissRequest: () -> Unit, modifier: Modifier = Modifier) {
+fun ModalCreateForm(
+    assignee: List<String>,
+    onDismissRequest: () -> Unit,
+    onCreate: (KanbanCardForm, KanbanStatus) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val state = remember { ModalCreateFormState() }
 
     Dialog(
@@ -45,6 +52,7 @@ fun ModalCreateForm(assignee: List<String>, onDismissRequest: () -> Unit, modifi
                 assignee = assignee,
                 modifier = Modifier,
                 onDismissRequest = onDismissRequest,
+                onCreate = onCreate,
             )
         }
     }
@@ -59,5 +67,6 @@ private fun ModalCreateFormPreview() {
     ModalCreateForm(
         assignee = TaskMockData.assignees,
         onDismissRequest = {},
+        onCreate = { _, _ -> },
     )
 }
