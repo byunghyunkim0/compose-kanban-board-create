@@ -9,3 +9,5 @@ val BorderButtonDefault = Color(0xFFE5E7EB)
 val StatusButtonBackground = Color(0xFFEFF6FF)
 val AssigneeButtonBackground = Color(0xFFEEF2FF)
 val CreateButtonBackground = Color(0xFF4F39F6)
+
+val ProgressText = Color(0xFF6A7282)
