@@ -2,7 +2,9 @@ package woowacourse.kanban.board.task.ui.board
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.task.domain.KanbanBoard
 import woowacourse.kanban.board.task.domain.KanbanStatus
+import woowacourse.kanban.board.task.domain.TaskMockData
+import woowacourse.kanban.board.task.ui.modal.ModalCreateForm
 import woowacourse.kanban.board.theme.BoardBackground
 
 @Composable
@@ -24,6 +28,16 @@ fun KanbanBoardScreen(modifier: Modifier = Modifier) {
     val todoCards = remember { board.getCardByStatus(KanbanStatus.TO_DO) }
     val inProgressCards = remember { board.getCardByStatus(KanbanStatus.IN_PROGRESS) }
     val doneCards = remember { board.getCardByStatus(KanbanStatus.DONE) }
+
+    var isShowModal by remember { mutableStateOf(false) }
+
+    if (isShowModal) {
+        ModalCreateForm(
+            assignee = TaskMockData.assignees,
+            onDismissRequest = { isShowModal = false },
+            modifier = Modifier.width(672.dp).height(820.dp),
+        )
+    }
 
     Scaffold(
         modifier = modifier,
@@ -37,7 +51,7 @@ fun KanbanBoardScreen(modifier: Modifier = Modifier) {
                 doneCount = board.doneCount,
                 totalCount = board.totalCount,
                 progress = board.progress,
-                onCreateClick = {},
+                onCreateClick = { isShowModal = true },
             )
         },
     ) { paddingValues ->

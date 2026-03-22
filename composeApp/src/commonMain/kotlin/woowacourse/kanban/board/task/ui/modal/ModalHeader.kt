@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.task.ui.modal
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,7 @@ import kanbanboard.composeapp.generated.resources.modal_title_new_task
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun ModalHeader(modifier: Modifier = Modifier) {
+fun ModalHeader(onDismissRequest: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -38,7 +39,7 @@ fun ModalHeader(modifier: Modifier = Modifier) {
         Icon(
             imageVector = Icons.Default.Close,
             contentDescription = "모달 닫기",
-            modifier = Modifier.size(20.dp),
+            modifier = Modifier.size(20.dp).clickable(onClick = { onDismissRequest() }),
         )
     }
 }
@@ -49,6 +50,6 @@ private fun ModalHeaderPreview() {
     Box(
         modifier = Modifier.padding(5.dp),
     ) {
-        ModalHeader()
+        ModalHeader(onDismissRequest = { })
     }
 }

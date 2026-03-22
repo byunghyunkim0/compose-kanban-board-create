@@ -28,7 +28,13 @@ import org.jetbrains.compose.resources.stringResource
 import woowacourse.kanban.board.theme.CreateButtonBackground
 
 @Composable
-fun ModalAction(isValidTitle: Boolean, isValidTag: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
+fun ModalAction(
+    isValidTitle: Boolean,
+    isValidTag: Boolean,
+    onDismissRequest: () -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     HorizontalDivider(
         thickness = Dp.Hairline,
         color = Color.LightGray,
@@ -43,7 +49,7 @@ fun ModalAction(isValidTitle: Boolean, isValidTag: Boolean, modifier: Modifier =
             modifier = Modifier
                 .height(44.dp)
                 .width(68.dp),
-            onClick = {},
+            onClick = { onDismissRequest() },
             colors = ButtonColors(
                 containerColor = Color.White,
                 contentColor = Color.Black,
@@ -93,6 +99,7 @@ private fun ModalActionPreview() {
         ModalAction(
             isValidTag = true,
             isValidTitle = true,
+            onDismissRequest = {},
             onClick = {},
         )
     }
