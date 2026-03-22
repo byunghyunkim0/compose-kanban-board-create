@@ -7,9 +7,8 @@ data class KanbanBoard(val cards: List<KanbanCard> = emptyList(), val cardId: Lo
             val count = cards.count { it.status == KanbanStatus.DONE }
             return (count * 100) / cards.size
         }
-    fun getCardByStatus(status: KanbanStatus): List<KanbanStatus> {
-        return emptyList()
-    }
+
+    fun getCardByStatus(status: KanbanStatus) = cards.filter { it.status == status }
 
     fun addCard(kanbanCardForm: KanbanCardForm, status: KanbanStatus) {
     }

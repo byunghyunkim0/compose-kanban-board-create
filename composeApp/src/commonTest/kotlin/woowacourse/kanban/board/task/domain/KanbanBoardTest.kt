@@ -49,9 +49,9 @@ class KanbanBoardTest {
 
         val board = KanbanBoard(cards = card)
 
-        assertThat(board.getCardByStatus(KanbanStatus.IN_PROGRESS)).isEqualTo(1)
-        assertThat(board.getCardByStatus(KanbanStatus.TO_DO)).isEqualTo(2)
-        assertThat(board.getCardByStatus(KanbanStatus.DONE)).isEqualTo(1)
+        assertThat(board.getCardByStatus(KanbanStatus.IN_PROGRESS).size).isEqualTo(1)
+        assertThat(board.getCardByStatus(KanbanStatus.TO_DO).size).isEqualTo(2)
+        assertThat(board.getCardByStatus(KanbanStatus.DONE).size).isEqualTo(1)
     }
 
     @Test
