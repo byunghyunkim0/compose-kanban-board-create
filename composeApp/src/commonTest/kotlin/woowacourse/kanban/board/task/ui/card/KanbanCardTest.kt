@@ -29,7 +29,7 @@ class KanbanCardTest {
 
         // when
         setContent {
-            KanbanCard(
+            KanbanCardItem(
                 kanbanCardForm = kanbanCardForm,
             )
         }
@@ -56,7 +56,7 @@ class KanbanCardTest {
 
         // when
         setContent {
-            KanbanCard(
+            KanbanCardItem(
                 kanbanCardForm = kanbanCardForm,
             )
         }
@@ -81,7 +81,7 @@ class KanbanCardTest {
 
         // when
         setContent {
-            KanbanCard(
+            KanbanCardItem(
                 kanbanCardForm = kanbanCardForm,
             )
         }
@@ -99,7 +99,7 @@ class KanbanCardTest {
         )
 
         setContent {
-            KanbanCard(
+            KanbanCardItem(
                 kanbanCardForm = kanbanCardForm,
             )
         }
@@ -120,7 +120,7 @@ class KanbanCardTest {
         )
 
         setContent {
-            KanbanCard(
+            KanbanCardItem(
                 kanbanCardForm = kanbanCardForm,
             )
         }

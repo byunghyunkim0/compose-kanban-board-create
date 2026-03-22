@@ -17,7 +17,7 @@ class KanbanCardTagsTest {
         )
 
         setContent {
-            KanbanCard(
+            KanbanCardItem(
                 kanbanCardForm = kanbanCardForm,
             )
         }
