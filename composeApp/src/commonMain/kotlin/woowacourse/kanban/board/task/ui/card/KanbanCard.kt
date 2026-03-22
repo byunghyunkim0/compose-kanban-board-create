@@ -23,7 +23,7 @@ import woowacourse.kanban.board.task.domain.KanbanCardForm
  * @param tags 최대 5개까지만 표시되는 태그 리스트입니다. 5개를 초과하면 상위 5개만 렌더링됩니다.
  */
 @Composable
-fun KanbanCard(kanbanCardForm: KanbanCardForm, modifier: Modifier = Modifier) {
+fun KanbanCardItem(kanbanCardForm: KanbanCardForm, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .width(286.dp)
@@ -94,7 +94,7 @@ private class KanbanCardPreviewParameterProvider : PreviewParameterProvider<Kanb
 @Composable
 private fun KanbanCardPreview(@PreviewParameter(KanbanCardPreviewParameterProvider::class) kanbanCardInfo: KanbanCardInfo) {
     Box(modifier = Modifier.padding(12.dp)) {
-        KanbanCard(
+        KanbanCardItem(
             kanbanCardForm = KanbanCardForm(
                 title = kanbanCardInfo.title,
                 crewName = kanbanCardInfo.crewName,
@@ -109,7 +109,7 @@ private fun KanbanCardPreview(@PreviewParameter(KanbanCardPreviewParameterProvid
 @Composable
 private fun KanbanCardMaxPreview() {
     Box(modifier = Modifier.padding(12.dp)) {
-        KanbanCard(
+        KanbanCardItem(
             kanbanCardForm = KanbanCardForm(
                 title = "너무너무 긴 제목은 한 줄까지만 노출합니다. 그렇습니다. 감사합니다.",
                 crewName = "바드바드바드바드바드바드바드바드바드바드바드바드바드바드",
